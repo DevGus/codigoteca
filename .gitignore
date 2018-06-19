@@ -1,0 +1,18 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+packages/
+.vs/
+
+codigoteca/App_Data/
+codigoteca/App_Start/
+codigoteca/bin/
+codigoteca/obj/
+codigoteca/Properties/
+codigoteca/Web.config
+codigoteca/Web.Debug.config
+codigoteca/Web.Release.config
+codigoteca/packages.config
+codigoteca/Global.asax.cs
+codigoteca/Global.asax
+codigoteca/ApplicationInsights.config
+

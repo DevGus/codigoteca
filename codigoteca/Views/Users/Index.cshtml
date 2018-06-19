@@ -1,0 +1,63 @@
+﻿@model IEnumerable<codigoteca.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserMail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserAge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserHash)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserMail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserPass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserAge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserHash)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+        </td>
+    </tr>
+}
+
+</table>
