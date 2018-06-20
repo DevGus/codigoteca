@@ -166,6 +166,7 @@
     <Compile Include="Logica\Auth_Controller.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\UserGroups.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Post.cs" />
@@ -177,7 +178,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="functions.js" />
+    <Content Include="Content\js\functions.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
@@ -235,6 +236,9 @@
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Index\delete.cshtml" />
     <Content Include="Views\Auth\Logon.cshtml" />
+    <Content Include="Views\Auth\Register.cshtml" />
+    <Content Include="Views\Shared\_PostsPV.cshtml" />
+    <Content Include="Views\Shared\_GruposPV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

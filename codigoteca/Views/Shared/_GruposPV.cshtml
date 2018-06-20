@@ -1,0 +1,42 @@
+﻿
+@model IEnumerable<codigoteca.Models.Group>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tus grupos</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo grupo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupDate)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.GroupID }) |
+                @Html.ActionLink("Ver", "Details", new { id = item.GroupID }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.GroupID })
+            </td>
+        </tr>
+    }
+
+</table>
+

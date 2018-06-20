@@ -21,7 +21,7 @@ namespace codigoteca.Controllers
         {
             return View(db.Groups.ToList());
         }
-
+           
         // GET: Groups/Details/5
         [Authorize]
         public ActionResult Details(int? id)
@@ -131,6 +131,12 @@ namespace codigoteca.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult VistaParcial()
+        {
+            var group = db.Groups.ToList<Group>();
+            return View("_GruposPV", group);
         }
     }
 }

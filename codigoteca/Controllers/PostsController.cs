@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using codigoteca;
 using codigoteca.Models;
 
@@ -39,6 +40,11 @@ namespace codigoteca.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
+
+            var serv = (from s in db.Groups
+                        join sa in db.UserGroups on s.GroupID equals sa.Group_GroupId
+                        where sa.User_UserID == 1
+                        select s).ToList();
             return View();
         }
 
@@ -123,6 +129,12 @@ namespace codigoteca.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult VistaParcial()
+        {
+            var post = db.Posts.ToList();
+            return View("_PostsPV", post);
         }
     }
 }

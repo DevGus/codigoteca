@@ -27,6 +27,7 @@ namespace codigoteca.Controllers
             User user = db.Users.Where(a => a.UserMail == loginUser.UserMail).FirstOrDefault();
             if (user != null && user.Decrypt(user.UserHash).Equals(loginUser.UserPass)){
                 /*Usuario logueado*/
+                FormsAuthentication.SetAuthCookie(user.UserID.ToString(), false);
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
                 FormsAuthentication.SetAuthCookie(user.UserMail, false);
 
@@ -49,6 +50,10 @@ namespace codigoteca.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Register()
+        {
+            return View("Register");
+        }
 
         // POST: register
         [HttpPost]
@@ -57,7 +62,7 @@ namespace codigoteca.Controllers
             if (ModelState.IsValid){
                 if (userExists(user.UserMail)){
                     ModelState.AddModelError("EmailExist", "Este mail ya se encuentra registrado");
-                    return View("../Index/Index", user);
+                    return View("Register", user);
                 }
                 #region Generate Activation Code 
                 user.ActivationCode = CreateActivationKey();

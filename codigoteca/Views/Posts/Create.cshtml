@@ -1,18 +1,18 @@
 ﻿@model codigoteca.Models.Post
 
 @{
-    ViewBag.Title = "Nuevo Post";
+    ViewBag.Title = "Nuevo Posteo";
 }
 
 <h2>Create</h2>
+<div class="row">
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Post</h4>
+    <div class="form-horizontal col-md-12">
+        <h4>nuevo posteo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -34,26 +34,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PostBody, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PostBody, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.PostBody, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PostBody, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostVisibility, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.PostVisibility)
-                    @Html.ValidationMessageFor(model => model.PostVisibility, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
 
@@ -65,16 +47,30 @@
             </div>
         </div>
 
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <h3>Visibilidad</h3>
+                <input type="radio" name="visibility" value="0" id="publico" /><label for="publico">Publico</label>
+                <input type="radio" name="visibility" value="1" id="privado" /><label for="privado">Privado</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <h3>Grupos de trabajo</h3>
+                
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Crear posteo" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
