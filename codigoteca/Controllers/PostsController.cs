@@ -40,12 +40,12 @@ namespace codigoteca.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-
-            var serv = (from s in db.Groups
+            int id = int.Parse(Session["UserId"].ToString());
+            var groupUsers = (from s in db.Groups
                         join sa in db.UserGroups on s.GroupID equals sa.Group_GroupId
-                        where sa.User_UserID == 1
+                        where sa.User_UserID == id
                         select s).ToList();
-            return View();
+            return View(groupUsers);
         }
 
         // POST: Posts/Create

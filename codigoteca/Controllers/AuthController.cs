@@ -28,9 +28,9 @@ namespace codigoteca.Controllers
             if (user != null && user.Decrypt(user.UserHash).Equals(loginUser.UserPass)){
                 /*Usuario logueado*/
                 FormsAuthentication.SetAuthCookie(user.UserID.ToString(), false);
-                FormsAuthentication.SetAuthCookie(user.UserName, false);
-                FormsAuthentication.SetAuthCookie(user.UserMail, false);
-
+                Session["UserId"] = user.UserID;
+                Session["UserName"] = user.UserName.ToString();
+                Session["UserMail"] = user.UserMail.ToString();
                 if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                     && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\")){
                     return Redirect(returnUrl);
@@ -47,6 +47,7 @@ namespace codigoteca.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index");
         }
 
