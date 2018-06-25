@@ -5,27 +5,6 @@
 
 <h2>@ViewBag.Title</h2>
 
-@if (ViewBag.Status != null)
-{
-    if (Convert.ToBoolean(ViewBag.Status))
-    {
-        if (ViewBag.Message != null)
-        {
-            <div class="alert alert-success">
-                <strong>Genial! </strong>@ViewBag.Message
-            </div>
-        }
-    }
-    else
-    {
-        if (ViewBag.Message != null)
-        {
-            <div class="alert alert-danger">
-                <strong>Ups! </strong>@ViewBag.Message
-            </div>
-        }
-    }
-}
 
 <div class="row">
     @using (Html.BeginForm("Register", "Auth", FormMethod.Post))

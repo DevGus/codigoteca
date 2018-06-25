@@ -38,6 +38,7 @@ namespace codigoteca.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public ActionResult Create()
         {
             int id = int.Parse(Session["UserId"].ToString());
@@ -45,7 +46,11 @@ namespace codigoteca.Controllers
                         join sa in db.UserGroups on s.GroupID equals sa.Group_GroupId
                         where sa.User_UserID == id
                         select s).ToList();
-            return View(groupUsers);
+            if (groupUsers.Count != 0)
+            {
+                ViewBag.groupUsers = groupUsers;
+            }
+            return View();
         }
 
         // POST: Posts/Create
@@ -53,13 +58,42 @@ namespace codigoteca.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostId,PostName,PostDescrip,PostBody,PostDate,PostVisibility,PostLanguage")] Post post)
+        public ActionResult Create([Bind(Include = "PostName,PostDescrip,PostBody,PostLanguage")] Post post, int[] groups, int visibility, string[] tags)
         {
+            /*int id = int.Parse(Session["UserId"].ToString());
+            User user = new User();
+            user.UserID = id;*/
+
             if (ModelState.IsValid)
             {
+                post.PostDate = DateTime.Today;
+//                post.PostOwner = user.UserID;
+                post.PostVisibility = visibility;
+                /*if (tags != null)
+                {
+                    List<string> tagList = new List<string>();
+                    foreach (string tag in tags)
+                    {
+                        tagList.Add(tag);
+                    }
+                    post.PostLabels = tagList;
+                }*/
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (visibility == 1 && groups != null)
+                {
+                    PostGroups pg = new PostGroups();
+                    foreach (var  group in groups)
+                    {
+                        pg.Post_PostId = post.PostId;
+                        pg.Group_GroupID = group;
+                        db.PostGroups.Add(pg);
+                        db.SaveChanges();
+                    }
+                }
+                ViewBag.Status = true;
+                ViewBag.Message = "El post fue creado con éxito!";
+                return View("Index");
             }
 
             return View(post);

@@ -26,6 +26,12 @@ namespace codigoteca.Controllers
         {
             User user = db.Users.Where(a => a.UserMail == loginUser.UserMail).FirstOrDefault();
             if (user != null && user.Decrypt(user.UserHash).Equals(loginUser.UserPass)){
+                if (user.EmailVerified == 0)
+                {
+                    ViewBag.Message = "Aún no has verificado tu correo electrónico";
+                    ViewBag.Status = false;
+                    return View("Logon");
+                }
                 /*Usuario logueado*/
                 FormsAuthentication.SetAuthCookie(user.UserID.ToString(), false);
                 Session["UserId"] = user.UserID;

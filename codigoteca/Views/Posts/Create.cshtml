@@ -1,73 +1,99 @@
 ﻿@model codigoteca.Models.Post
 
-@model2 codigoteca.Models.Group
-
 @{
     ViewBag.Title = "Nuevo Posteo";
 }
 
-<h2>Create</h2>
+<h2>Nuevo Post</h2>
+
+
 <div class="row">
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
+    <hr />
     <div class="form-horizontal col-md-12">
-        <h4>nuevo posteo</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="row" style="display:flex;flex:1">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostDescrip, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PostDescrip, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostDescrip, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="col-md-6">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostBody, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.PostBody, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostBody, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    <br />
+                    @Html.LabelFor(model => model.PostName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PostName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PostName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostLanguage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.PostLanguage, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PostLanguage, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostDescrip, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PostDescrip, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PostDescrip, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostLanguage, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.PostLanguage, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PostLanguage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <h3>Visibilidad</h3>
-                <input type="radio" name="visibility" value="0" id="publico" /><label for="publico">Publico</label>
-                <input type="radio" name="visibility" value="1" id="privado" /><label for="privado">Privado</label>
-            </div>
-        </div>
+                <div class="form-group">
+                    <h3 class="col-md-12">Visibilidad</h3>
+                    <div class="col-md-10">
+                        <input type="radio" name="visibility" value="0" id="pub" /><label for="pub">Público</label><br />
+                        <input type="radio" name="visibility" value="1" id="priv" class="work-show" /><label for="priv">Privado</label>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <h3>Grupos de trabajo</h3>
-                
+                @if (ViewBag.groupUsers != null)
+    {
+            <div class="form-group work-teams">
+                <div class="col-md-10">
+                    <h3>Grupos de trabajo</h3>
+                    @foreach (var item in ViewBag.groupUsers)
+        {
+            <input type="checkbox" name="groups" value="@item.GroupID" id="@item.GroupID" /><label for="@item.GroupID" style="margin-left:10px;">@item.GroupName</label>
+}
+                </div>
             </div>
+}
+
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <h3>Etiquetas</h3>
+                        <input type="text" name="tags" value="" class="form-control" />
+                    </div>
+                    <div class="col-md-6 tags-container">
+                        <h5 style="margin-top:40px;">Etiquetas agregadas</h5>
+                        <ul class="tags-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" style="height:100%;">
+                    @Html.LabelFor(model => model.PostBody, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12" style="height:100%;">
+                        @Html.TextAreaFor(model => model.PostBody, new { @class = "form-control code-textarea" })
+                        @Html.ValidationMessageFor(model => model.PostBody, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear posteo" class="btn btn-default" />
+                <input type="button" value="Crear posteo" class="btn btn-default submit" />
             </div>
         </div>
     </div>
@@ -77,4 +103,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Content/js/posts/create.js"></script>
 }
+

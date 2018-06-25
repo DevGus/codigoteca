@@ -20,5 +20,39 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
+}
+
+.code-textarea{
+    resize:vertical;
+    height:100% !important;
+}
+
+.tags-list {
+    width: 100%;
+    color: grey;
+    padding: 0
+}
+    .tags-list * {
+        color: grey;
+        margin:0
+    }
+
+.tags-list li {
+    list-style:none;
+    display: flex;
+    align-items:center;
+    justify-content: space-between
+}
+
+    .tags-list .tag-value{
+        border:none;
+    }
+
+    .tags-list .delete {
+        cursor: pointer;
+    }
+
+.work-teams{
+    display:none;
 }

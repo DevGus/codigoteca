@@ -166,6 +166,7 @@
     <Compile Include="Logica\Auth_Controller.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\PostGroups.cs" />
     <Compile Include="Models\UserGroups.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\Language.cs" />
