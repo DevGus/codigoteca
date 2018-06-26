@@ -38,7 +38,8 @@ namespace codigoteca.Controllers
 
             var groupUsers = (from s in db.UserGroups
                               join sa in db.Users on s.User_UserID equals sa.UserID
-                              select sa).ToList();
+                              where s.Group_GroupId == id
+                              select sa ).ToList();
             if (groupUsers.Count != 0)
             {
                 ViewBag.groupUsers = groupUsers;
@@ -59,11 +60,18 @@ namespace codigoteca.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id,GroupName,GroupDate")] Group group)
+        public ActionResult Create([Bind(Include = "GroupID,GroupName,GroupDate")] Group group)
         {
             if (ModelState.IsValid)
             {
+                int userId = int.Parse(Session["UserId"].ToString());
+                group.Owner = userId;
                 db.Groups.Add(group);
+                db.SaveChanges();
+                UserGroups userG = new UserGroups();
+                userG.Group_GroupId = group.GroupID;
+                userG.User_UserID = userId;
+                db.UserGroups.Add(userG);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

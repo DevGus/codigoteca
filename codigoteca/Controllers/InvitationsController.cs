@@ -63,6 +63,11 @@ namespace codigoteca.Controllers
                     ModelState.AddModelError("EmailNotExist", "Este mail no se encuentra registrado");
                     return RedirectToAction("../Groups/Details/"+invitation.InvitationGroup);
                 }
+                if (userMember(invitation))
+                {
+                    ModelState.AddModelError("MemberExist", "El usuario ya es miembro del grupo");
+                    return RedirectToAction("../Groups/Details/" + invitation.InvitationGroup);
+                }
                 #region Generate Hash Code 
                 invitation.InvitationHash = CreateInvitationHash();
                 #endregion
@@ -205,6 +210,15 @@ namespace codigoteca.Controllers
         public bool userExists(string email)
         {
             var v = db.Users.Where(a => a.UserMail == email).FirstOrDefault();
+            return v != null;
+        }
+        [NonAction]
+        public bool userMember(Invitation invitation)
+        {
+            User user = new User();
+            user = db.Users.Where(a => a.UserMail == invitation.Invite).FirstOrDefault();
+            var v = db.UserGroups.Where(a => a.User_UserID == user.UserID &&
+                                             a.Group_GroupId == invitation.InvitationGroup).FirstOrDefault();
             return v != null;
         }
 
