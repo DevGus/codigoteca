@@ -152,6 +152,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="CodigotecaDBContext.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
@@ -166,9 +167,9 @@
     <Compile Include="Logica\Auth_Controller.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\PostGroups.cs" />
     <Compile Include="Models\UserGroups.cs" />
-    <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\User.cs" />
@@ -221,7 +222,6 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Groups\Create.cshtml" />
     <Content Include="Views\Groups\Delete.cshtml" />
-    <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
@@ -240,6 +240,7 @@
     <Content Include="Views\Auth\Register.cshtml" />
     <Content Include="Views\Shared\_PostsPV.cshtml" />
     <Content Include="Views\Shared\_GruposPV.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
