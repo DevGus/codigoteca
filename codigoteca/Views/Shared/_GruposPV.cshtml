@@ -32,6 +32,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GroupDate)
             </td>
+            <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.GroupID })
+            </td>
         </tr>
     }
 

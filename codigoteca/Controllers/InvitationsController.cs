@@ -69,7 +69,7 @@ namespace codigoteca.Controllers
                 db.Invitations.Add(invitation);
                 db.SaveChanges();
                 SendInvitationLinkEmail(invitation.Invite, invitation.InvitationHash);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Groups");
             }
 
             return View(invitation);

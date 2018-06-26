@@ -28,9 +28,6 @@
             @Html.DisplayNameFor(model => model.PostDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostVisibility)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PostLanguage)
         </th>
         <th></th>
@@ -52,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.PostDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostVisibility)
+                @Html.DisplayFor(modelItem => item.PostLanguage)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostLanguage)
+                @Html.ActionLink("Ver", "Details", new { id = item.PostId })
             </td>
         </tr>
     }
