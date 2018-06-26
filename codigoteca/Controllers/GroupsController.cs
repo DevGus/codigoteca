@@ -35,6 +35,12 @@ namespace codigoteca.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.isAdmin = false;
+            int userId = int.Parse(Session["UserId"].ToString());
+            if (userId ==group.Owner)
+            {
+                ViewBag.isAdmin = true;
+            }
 
             var groupUsers = (from s in db.UserGroups
                               join sa in db.Users on s.User_UserID equals sa.UserID
@@ -44,6 +50,7 @@ namespace codigoteca.Controllers
             {
                 ViewBag.groupUsers = groupUsers;
             }
+
             return View(group);
         }
 
@@ -60,12 +67,13 @@ namespace codigoteca.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "GroupID,GroupName,GroupDate")] Group group)
+        public ActionResult Create([Bind(Include = "GroupID,GroupName")] Group group)
         {
             if (ModelState.IsValid)
             {
                 int userId = int.Parse(Session["UserId"].ToString());
                 group.Owner = userId;
+                group.GroupDate = DateTime.Today;
                 db.Groups.Add(group);
                 db.SaveChanges();
                 UserGroups userG = new UserGroups();
