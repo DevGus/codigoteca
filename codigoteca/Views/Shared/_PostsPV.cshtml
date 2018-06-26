@@ -5,11 +5,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Últimos posteos</h2>
+<h3>Últimos posteos</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button type="button" class="btn">
+    @Html.ActionLink("Crear Post", "Create")
+</button>
+<br>
+<br>
+
 <table class="table">
     <tr>
         <th>
@@ -53,11 +56,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PostLanguage)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PostId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.PostId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PostId })
             </td>
         </tr>
     }

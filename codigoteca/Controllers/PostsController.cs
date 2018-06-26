@@ -17,6 +17,7 @@ namespace codigoteca.Controllers
         private CodigotecaDBContext db = new CodigotecaDBContext();
 
         // GET: Posts
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Posts.ToList());
