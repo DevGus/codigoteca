@@ -37,20 +37,28 @@ namespace codigoteca.Controllers
         }
 
         // GET: Invitations/Create
-        public ActionResult Create()
+        [Authorize]
+        public ActionResult Create(int GroupID)
         {
+            {
+                ViewBag.GroupID = GroupID;
+            }
             return View();
         }
+
 
         // POST: Invitations/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,InvitationHash")] Invitation invitation)
+        public ActionResult Create([Bind(Include = "Invite")] Invitation invitation)
         {
             if (ModelState.IsValid)
             {
+                #region Generate Hash Code 
+                invitation.InvitationHash = CreateInvitationHash();
+                #endregion
                 db.Invitations.Add(invitation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,6 +131,20 @@ namespace codigoteca.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [NonAction]
+        private string CreateInvitationHash()
+        {
+            var activationKey = Guid.NewGuid().ToString();
+
+            var activationKeyAlreadyExists = db.Invitations.Any(key => key.InvitationHash == activationKey);
+
+            if (activationKeyAlreadyExists)
+            {
+                activationKey = CreateInvitationHash();
+            }
+
+            return activationKey;
         }
     }
 }
