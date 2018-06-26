@@ -35,6 +35,14 @@ namespace codigoteca.Controllers
             {
                 return HttpNotFound();
             }
+
+            var groupUsers = (from s in db.UserGroups
+                              join sa in db.Users on s.User_UserID equals sa.UserID
+                              select sa).ToList();
+            if (groupUsers.Count != 0)
+            {
+                ViewBag.groupUsers = groupUsers;
+            }
             return View(group);
         }
 

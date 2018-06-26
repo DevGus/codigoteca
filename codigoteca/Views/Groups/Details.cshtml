@@ -33,7 +33,21 @@
     @Html.ActionLink("Back to List", "Index") |
 </p>
 
-
+@if (ViewBag.groupUsers != null)
+    {
+<div class="form-group">
+    <div class="col-md-10">
+        <h3>Integrantes</h3>
+        @foreach (var item in ViewBag.groupUsers)
+        {
+        <label for="@item.UserID" style="margin-left:10px;">@item.UserName</label>
+}
+    </div>
+</div>
+}
+<br />
+<br />
+<br />
 @{Html.RenderAction("Create", "Invitations", new {GroupID = Model.GroupID });
 }
 
