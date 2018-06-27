@@ -7,15 +7,6 @@
 <h2>Detalles</h2>
 
 <div>
-    <h4>Group</h4>
-    <hr />
-    @if (ViewBag.isAdmin)
-    {
-        <p>>Admin</p>
-    }
-    else {
-        <p>>NoAdmin</p>
-            }
 
     <dl class="dl-horizontal">
         <dt>
@@ -48,8 +39,16 @@
         <h3>Integrantes</h3>
         @foreach (var item in ViewBag.groupUsers)
         {
-        <label for="@item.UserID" style="margin-left:10px;">@item.UserName</label>
-}
+            if(item.UserID == ViewBag.Owner.UserID)
+            {
+                <label for="@item.UserID" style="margin-left:10px;">@item.UserName (Administrador)</label> 
+            }
+            else
+            {
+            <label for="@item.UserID" style="margin-left:10px;">@item.UserName</label>
+            }
+
+        }
     </div>
 </div>
 }

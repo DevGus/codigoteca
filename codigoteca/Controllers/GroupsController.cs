@@ -35,9 +35,13 @@ namespace codigoteca.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.isAdmin = false;
             int userId = int.Parse(Session["UserId"].ToString());
-            if (userId ==group.Owner)
+            User owner = db.Users.Where(a => a.UserID == group.Owner).FirstOrDefault();
+            ViewBag.Owner = owner;
+
+            if (userId == group.Owner)
             {
                 ViewBag.isAdmin = true;
             }
