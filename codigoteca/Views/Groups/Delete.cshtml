@@ -6,35 +6,13 @@
 
 <h2>Borrar</h2>
 
-<h3>¿Está seguro que desea borrar este grupo?</h3>
-<div>
-    <h4>Grupo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.GroupName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GroupName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GroupDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GroupDate)
-        </dd>
-
-    </dl>
-
+<h3 style="margin-bottom:10px">¿Está seguro que desea borrar el grupo <strong>@Model.GroupName</strong>?</h3>
+<div style="margin-top:30px">
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Volver al listado", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            <a class="btn btn-primary" href="/Groups">Volver atrás</a>
         </div>
     }
 </div>

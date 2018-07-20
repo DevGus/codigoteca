@@ -23,6 +23,15 @@ namespace codigoteca.Controllers
             return View(db.Invitations.ToList());
         }
 
+
+
+        public ActionResult pending()
+        {
+            String mail = Session["UserMail"].ToString();
+            var invs = db.Invitations.Where(a => a.Invite == mail).ToList();
+            return View("Index",invs);
+        }
+
         // GET: Invitations/Details/5
         public ActionResult Details(int? id)
         {

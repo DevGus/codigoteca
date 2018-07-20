@@ -1,5 +1,4 @@
 ﻿
-@model IEnumerable<codigoteca.Models.Group>
 
 @{
     ViewBag.Title = "Index";
@@ -15,25 +14,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GroupName)
+            Nombre del grupo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GroupDate)
+            Fecha de creación
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in ViewBag.groupUsers)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.GroupName)
+                 @item.GroupName
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GroupDate)
+                @item.GroupDate
             </td>
             <td>
-                @Html.ActionLink("Ver", "Details", new { id = item.GroupID })
+                <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"> <i class="fa fa-eye"></i> </a>
             </td>
         </tr>
     }

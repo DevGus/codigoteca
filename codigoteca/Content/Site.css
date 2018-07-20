@@ -56,3 +56,27 @@ textarea {
 .work-teams{
     display:none;
 }
+
+
+/*GROUPS*/
+/*create*/
+.groups .invited .invitation {
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+    .groups .invited .invitation input {
+        border: 0;
+        color: #777;
+        box-shadow: none;
+        background-color:transparent;
+    }
+
+    .groups .invited .invitation i{
+        color:#777;
+        cursor:pointer
+    }
+
+    .groups .error{
+        display:none;
+    }

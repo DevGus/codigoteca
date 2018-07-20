@@ -7,31 +7,38 @@
 <h2>Grupos</h2>
 
 <p>
-    @Html.ActionLink("Crear nuevo grupo", "Create")
+    <a href="/Groups/Create" class="btn btn-default">Crear nuevo grupo</a>
 </p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.GroupName)
+            Nombre de grupo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GroupDate)
+            Fecha
+        </th>
+        <th>
+            Acciones
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in ViewBag.groups) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.GroupName)
+            @item.GroupName
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GroupDate)
+            @item.GroupDate
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.GroupID }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.GroupID }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.GroupID })
+            <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+            @if (ViewBag.UserId == item.Owner)
+              {
+                    <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                    <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+            }
         </td>
     </tr>
 }

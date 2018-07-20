@@ -1,10 +1,10 @@
 ﻿@model codigoteca.Models.Group
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar grupo";
 }
 
-<h2>Editar</h2>
+<h2>Editar grupo</h2>
 
 
 @using (Html.BeginForm())
@@ -12,39 +12,64 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Group</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*@Html.HiddenFor(model => model.Id)*@
+    <input type="text" name="id" value="@Model.GroupID" hidden  />
 
     <div class="form-group">
         @Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-6">
             @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
         </div>
+
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.GroupDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.GroupDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.GroupDate, "", new { @class = "text-danger" })
+    <h3>Administrar integrantes </h3>
+    <br />
+    @if (ViewBag.isAdmin)
+    {
+        <h4>Existentes</h4>
+        foreach (var item in ViewBag.groupUsers)
+        {
+            <div style="display:flex;margin-bottom:15px; justify-content:space-between;align-items:center;border-bottom: 1px solid #777" class="col-md-12">
+                <p>@item.UserName - @item.UserMail</p>
+                <a href="/Groups/deleteIntegrant/@item.UserID" class="btn btn-danger">Eliminar</a>
+            </div>
+        }
+    }
+
+    <h4>Invitar usuarios</h4>
+    <div class="form-group groups" data-id="@Model.GroupID.ToString()">
+        <div class="col-md-6">
+            <input class="form-control addEmail" name="addMail" type="email" value="" placeholder="Ingrese el email" />
+            <span class="text-danger error"></span>
         </div>
+        <button type="button" class="col-md-1 col-xs-3 add btn btn-primary">
+            Agregar
+        </button>
+        <div class="clearfix"></div>
+        <br />
+        <div class="col-md-12">
+            <h5><strong>Invitados</strong></h5>
+            <div class="invited">
+
+            </div>
+        </div>
+        
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Guardar" class="btn btn-default" />
+        <div class="col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+            <a href="/Groups" class="btn btn-primary">Volver atrás</a>
         </div>
     </div>
 </div>
 }
 
-<div>
-    @Html.ActionLink("Volver al listado", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Content/js/groups/edit.js"></script>
 }

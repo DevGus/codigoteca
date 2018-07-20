@@ -22,14 +22,18 @@
                 @Html.ActionLink("C0D1G0TECA", "Index", "Index", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+                    <li>@Html.ActionLink("Mis posteos", "Index", "Posts")</li>
                     <li>@Html.ActionLink("Grupos", "Index", "Groups")</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Cerrar sesión", "LogOut", "Auth")</li>
-                    }
+                    <li>@Html.ActionLink("Cerrar sesión", "LogOut", "Auth")</li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/invitations/pending">Invitaciones</a></li>
+                    <li><a href="/posts/privates">Posts privados</a></li>
+                </ul>
+                }
             </div>
         </div>
     </div>

@@ -6,11 +6,11 @@
 
 <h2>Detalles</h2>
 
-<div>
+<div class="col-md-12">
 
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.GroupName)
+           Nombre del grupo
         </dt>
 
         <dd>
@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.GroupDate)
+            Fecha de creación
         </dt>
 
         <dd>
@@ -27,37 +27,46 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.GroupID }) |
-    @Html.ActionLink("Volver al listado", "Index") |
-</p>
 
 @if (ViewBag.groupUsers != null)
-    {
-<div class="form-group">
-    <div class="col-md-10">
-        <h3>Integrantes</h3>
-        @foreach (var item in ViewBag.groupUsers)
-        {
-            if(item.UserID == ViewBag.Owner.UserID)
+{
+<div class="col-md-12">
+    <h3>Integrantes</h3>
+            @foreach (var item in ViewBag.groupUsers)
             {
-                <label for="@item.UserID" style="margin-left:10px;">@item.UserName (Administrador)</label> 
-            }
-            else
-            {
-            <label for="@item.UserID" style="margin-left:10px;">@item.UserName</label>
-            }
+                if (item.UserID == ViewBag.Owner.UserID)
+                {
+                    <p><i class="fa fa-check"></i>@item.UserName (Administrador)</p>
 
-        }
-    </div>
+                }
+                else
+                {
+                    <p><i class="fa fa-check"></i>@item.UserName</p>
+                }
+
+            }
 </div>
 }
-<br />
-<br />
-<br />
-@{Html.RenderAction("Create", "Invitations", new {GroupID = Model.GroupID });
-}
 
 
+<div class="col-md-12">
+    <h3>Posteos</h3>
+    <table class="table">
+        <tr>
+            <th>Fecha</th>
+            <th>Título</th>
+            <th></th>
+        </tr>
 
-
+        @foreach (var item in ViewBag.postsGroup)
+        {
+            <tr>
+                <td> @item.PostDate </td>
+                <td>@item.PostName</td>
+                <td>
+                    <a class="btn btn-primary" href="/Posts/Details/@item.PostId"><i class='fa fa-eye'></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

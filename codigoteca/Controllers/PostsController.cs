@@ -20,7 +20,7 @@ namespace codigoteca.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(getUserPosts());
         }
 
         // GET: Posts/Details/5
@@ -44,13 +44,14 @@ namespace codigoteca.Controllers
         {
             int id = int.Parse(Session["UserId"].ToString());
             var groupUsers = (from s in db.Groups
-                        join sa in db.UserGroups on s.GroupID equals sa.Group_GroupId
-                        where sa.User_UserID == id
-                        select s).ToList();
+                              join sa in db.UserGroups on s.GroupID equals sa.Group_GroupId
+                              where sa.User_UserID == id
+                              select s).ToList();
             if (groupUsers.Count != 0)
             {
                 ViewBag.groupUsers = groupUsers;
             }
+
             return View();
         }
 
@@ -68,7 +69,7 @@ namespace codigoteca.Controllers
             if (ModelState.IsValid)
             {
                 post.PostDate = DateTime.Today;
-//                post.PostOwner = user.UserID;
+                //                post.PostOwner = user.UserID;
                 post.PostVisibility = visibility;
                 /*if (tags != null)
                 {
@@ -79,12 +80,14 @@ namespace codigoteca.Controllers
                     }
                     post.PostLabels = tagList;
                 }*/
+                post.PostOwner = Convert.ToInt32(Session["UserId"].ToString());
+
                 db.Posts.Add(post);
                 db.SaveChanges();
                 if (visibility == 1 && groups != null)
                 {
                     PostGroups pg = new PostGroups();
-                    foreach (var  group in groups)
+                    foreach (var group in groups)
                     {
                         pg.Post_PostId = post.PostId;
                         pg.Group_GroupID = group;
@@ -94,7 +97,7 @@ namespace codigoteca.Controllers
                 }
                 ViewBag.Status = true;
                 ViewBag.Message = "El post fue creado con éxito!";
-                return View("Index");
+                return RedirectToAction("Index");
             }
 
             return View(post);
@@ -168,8 +171,27 @@ namespace codigoteca.Controllers
 
         public ActionResult VistaParcial()
         {
-            var post = db.Posts.ToList();
-            return View("_PostsPV", post);
+            return View("_PostsPV", getAllPublicPosts());
+        }
+
+
+        [Authorize]
+        public ActionResult privates (){
+            int id = int.Parse(Session["UserId"].ToString());
+            var posts = db.Posts.Where(a => (a.PostOwner == id && a.PostVisibility == 1)).ToList();
+            ViewBag.titulo = "Posts privados";
+            ViewBag.text= "Estos posteos sólo los podes ver vos y los grupos que tiene asignado. No lo verá la comunidad";
+            return View("Index",posts);
+        }
+
+        public List<Post> getAllPublicPosts()
+        {
+            return db.Posts.Where(a => a.PostVisibility == 0).ToList();
+        }
+        public List<Post> getUserPosts()
+        {
+            int id = Convert.ToInt32(Session["UserId"].ToString());
+            return db.Posts.Where(a => a.PostOwner == id).ToList();
         }
     }
 }

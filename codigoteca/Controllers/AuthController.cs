@@ -34,6 +34,7 @@ namespace codigoteca.Controllers
                 }
                 /*Usuario logueado*/
                 FormsAuthentication.SetAuthCookie(user.UserID.ToString(), false);
+
                 Session["UserId"] = user.UserID;
                 Session["UserName"] = user.UserName.ToString();
                 Session["UserMail"] = user.UserMail.ToString();

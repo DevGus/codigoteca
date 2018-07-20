@@ -4,7 +4,16 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Posts</h2>
+@if (@ViewBag.titulo != null)
+{
+    <h2> @ViewBag.titulo </h2>
+    <p>@ViewBag.text</p>
+}
+else
+{
+    <h2>Posts</h2>
+}
+
 
 <button type="button" class="btn">
     @Html.ActionLink("Crear nuevo post", "Create")
@@ -21,9 +30,6 @@
             @Html.DisplayNameFor(model => model.PostDescrip)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PostDate)
         </th>
         <th>
@@ -32,35 +38,41 @@
         <th>
             @Html.DisplayNameFor(model => model.PostLanguage)
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostDescrip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostBody)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostVisibility)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostLanguage)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.PostId }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.PostId }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.PostId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostDescrip)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PostDate)
+            </td>
+            <td>
+                @if (item.PostVisibility == 0)
+                {
+                    <p>Público</p>
+                }
+                else
+                {
+                    <p>Público</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostLanguage)
+            </td>
+            <td>
+                <a href="/Posts/Edit/@item.PostId" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                <a href="/Posts/Details/@item.PostId" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                <a href="/Posts/Delete/@item.PostId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>

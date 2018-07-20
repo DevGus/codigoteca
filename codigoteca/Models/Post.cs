@@ -26,7 +26,7 @@ namespace codigoteca.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debes ingresar el código")]
         public string PostBody { get; set; }
 
-        public User PostOwner { get; set; }
+        public int PostOwner { get; set; }
 
         public DateTime PostDate { get; set; }
 

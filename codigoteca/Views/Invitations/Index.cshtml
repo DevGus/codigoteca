@@ -23,9 +23,8 @@
             @Html.DisplayFor(modelItem => item.InvitationHash)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
+            <a href="/invitations/accept/@item.Id" class="btn btn-success">Aceptar</a>
+            <a href="/invitations/reject/@item.Id" class="btn btn-danger">Rechazar</a>
         </td>
     </tr>
 }
