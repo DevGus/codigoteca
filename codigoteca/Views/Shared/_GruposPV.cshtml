@@ -22,19 +22,46 @@
         <th>Acciones</th>
     </tr>
 
-    @foreach (var item in ViewBag.groupUsers)
+    @if (ViewBag.isAdmin)
     {
-        <tr>
-            <td>
-                 @item.GroupName
-            </td>
-            <td>
-                @item.GroupDate
-            </td>
-            <td>
-                <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"> <i class="fa fa-eye"></i> </a>
-            </td>
-        </tr>
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.GroupName
+                </td>
+                <td>
+                    @item.GroupDate
+                </td>
+                <td>
+                    <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                    <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                    <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        foreach (var item in ViewBag.groups)
+        {
+            <tr>
+                <td>
+                    @item.GroupName
+                </td>
+                <td>
+                    @item.GroupDate
+                </td>
+                <td>
+                    <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                    @if (ViewBag.UserId == item.Owner)
+                    {
+                        <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                        <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    }
+                </td>
+            </tr>
+        }
     }
 
 </table>

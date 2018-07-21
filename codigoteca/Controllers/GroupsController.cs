@@ -228,12 +228,21 @@ namespace codigoteca.Controllers
 
         public ActionResult VistaParcial()
         {
+
+            ViewBag.isAdmin = bool.Parse(Session["isAdmin"].ToString());
             int id = int.Parse(Session["UserId"].ToString());
             var groupUsers = (from s in db.UserGroups
                               join sa in db.Groups on s.Group_GroupId equals  sa.GroupID 
                               where s.User_UserID == id
                               select sa).ToList();
             ViewBag.groupUsers = groupUsers;
+            var groups = (from s in db.UserGroups
+                          join sa in db.Groups on s.Group_GroupId equals sa.GroupID
+                          where s.User_UserID == id
+                          select sa).ToList();
+            ViewBag.groups = groups;
+            ViewBag.userId = int.Parse(Session["UserId"].ToString());
+
             return View("_GruposPV");
         }
 
