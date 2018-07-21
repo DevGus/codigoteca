@@ -26,9 +26,9 @@ namespace codigoteca.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debes ingresar el código")]
         public string PostBody { get; set; }
 
-        public int PostOwner { get; set; }
-
         public DateTime PostDate { get; set; }
+
+        public int PostOwner { get; set; }
 
         [Display(Name = "Etiquetas")]
         public List<string> PostLabels { get; set; }

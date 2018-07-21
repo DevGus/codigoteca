@@ -123,10 +123,11 @@ namespace codigoteca.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostId,PostName,PostDescrip,PostBody,PostDate,PostVisibility,PostLanguage")] Post post)
+        public ActionResult Edit([Bind(Include = "PostId,PostName,PostDescrip,PostBody,PostVisibility,PostLanguage")] Post post)
         {
             if (ModelState.IsValid)
             {
+                post.PostDate = DateTime.Today;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
