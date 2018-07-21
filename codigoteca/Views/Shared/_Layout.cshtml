@@ -27,7 +27,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Mis posteos", "Index", "Posts")</li>
                     <li>@Html.ActionLink("Grupos", "Index", "Groups")</li>
-                    <li>@Html.ActionLink("Cerrar sesión", "LogOut", "Auth")</li>
+                    <li>@Html.ActionLink(Session["UserName"].ToString()+" (Cerrar Sesión)", "LogOut", "Auth")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/invitations/pending">Invitaciones</a></li>
