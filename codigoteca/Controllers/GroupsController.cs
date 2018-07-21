@@ -34,6 +34,7 @@ namespace codigoteca.Controllers
                               select sa).ToList();
             ViewBag.groups = groups;
             ViewBag.userId = int.Parse(Session["UserId"].ToString());
+            ViewBag.isAdmin = bool.Parse(Session["isAdmin"].ToString());
 
             return View(db.Groups.ToList());
         }

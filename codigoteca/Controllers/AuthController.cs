@@ -38,6 +38,7 @@ namespace codigoteca.Controllers
                 Session["UserId"] = user.UserID;
                 Session["UserName"] = user.UserName.ToString();
                 Session["UserMail"] = user.UserMail.ToString();
+                Session["isAdmin"] = user.isAdmin.ToString();
                 if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                     && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\")){
                     return Redirect(returnUrl);

@@ -60,6 +60,8 @@ namespace codigoteca.Models
 
         public string UserHash { get; set; }
 
+        public Boolean isAdmin { get; set; } = false;
+
         public string Encrypt(string str)
         {
             string EncrptKey = "2013;[pnuLIT)WebCodeExpert";
