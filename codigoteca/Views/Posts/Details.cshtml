@@ -4,62 +4,56 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalles</h2>
+<h3>Detalles de: <span style="color:royalblue">@Html.DisplayFor(model => model.PostName)</span></h3>
 
 <div>
-    <h4>Post</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PostName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostDescrip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostDescrip)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostBody)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostVisibility)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostVisibility)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostLanguage)
-        </dt>
-
-        <dd>
+    <div class="col-lg-4" style="font-size:medium">
+        <div class="col-md-10">
+            <b>
+                @Html.DisplayNameFor(model => model.PostLanguage):
+            </b>
             @Html.DisplayFor(model => model.PostLanguage)
-        </dd>
-
-    </dl>
-</div>
+        </div>
+        <br><br>
+        <div class="col-md-10">
+            <b>
+                @Html.DisplayNameFor(model => model.PostDescrip):
+            </b>
+            @Html.DisplayFor(model => model.PostDescrip)
+        </div>
+        <br><br>
+        <div class="col-md-10">
+            <b>
+                @Html.DisplayNameFor(model => model.PostDate):
+            </b>
+            @Html.DisplayFor(model => model.PostDate)
+        </div>
+        <br><br>
+        <div class="col-md-10">
+            <b>
+                @Html.DisplayNameFor(model => model.PostVisibility):
+            </b>
+            @if (@Model.PostVisibility == 0)
+            {
+                <span> Público </span>
+            }
+            else
+            {
+                <span> Privado </span>
+            }
+            
+        </div>
+    </div>
+        <div class="col-md-8">
+            <p style="text-align:center">
+                <span style="font-size:140%">@Html.DisplayNameFor(model => model.PostBody)</span>
+            </p>
+            <textarea readonly rows="8" cols="100">
+                @Html.DisplayFor(model => model.PostBody)
+            </textarea>
+        </div>
+    </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.PostId }) |
     @Html.ActionLink("Volver al listado", "Index")

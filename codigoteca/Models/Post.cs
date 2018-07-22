@@ -26,13 +26,17 @@ namespace codigoteca.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debes ingresar el código")]
         public string PostBody { get; set; }
 
+        [Display(Name = "Última modificación")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime PostDate { get; set; }
 
+        [Display(Name = "Creador del Post")]
         public int PostOwner { get; set; }
 
         [Display(Name = "Etiquetas")]
         public List<string> PostLabels { get; set; }
 
+        [Display(Name = "Visibilidad")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debes seleccionar la visibilidad del posteo")]
         public int PostVisibility { get; set; }
 
