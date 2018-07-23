@@ -385,5 +385,15 @@ namespace codigoteca.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public JsonResult BuscarPersonas(string term)
+        {
+            using (CodigotecaDBContext db = new CodigotecaDBContext())
+            {
+                var resultado = db.Users.Where(x => x.UserMail.Contains(term))
+                    .Select(x => x.UserMail).Take(5).ToList();
+                return Json(resultado, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
