@@ -4,11 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h3>Detalles de: <span style="color:royalblue">@Html.DisplayFor(model => model.PostName)</span></h3>
+<h3>Detalles de: <span style="color:cornflowerblue">@Html.DisplayFor(model => model.PostName)</span></h3>
 
 <div>
     <hr />
     <div class="col-lg-4" style="font-size:medium">
+        <br><br>
         <div class="col-md-10">
             <b>
                 @Html.DisplayNameFor(model => model.PostLanguage):
@@ -42,19 +43,24 @@
             {
                 <span> Privado </span>
             }
-            
+
         </div>
     </div>
-        <div class="col-md-8">
-            <p style="text-align:center">
-                <span style="font-size:140%">@Html.DisplayNameFor(model => model.PostBody)</span>
-            </p>
-            <textarea readonly rows="8" cols="100">
+    <div class="col-md-8">
+        <p style="text-align:left">
+            <span style="font-size:140%">@Html.DisplayNameFor(model => model.PostBody)</span>
+        </p>
+        <textarea readonly rows="8" cols="101">
                 @Html.DisplayFor(model => model.PostBody)
             </textarea>
-        </div>
     </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.PostId }) |
-    @Html.ActionLink("Volver al listado", "Index")
-</p>
+
+</div>
+<div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.PostId }) |
+        @Html.ActionLink("Volver al listado", "Index")
+    </p>
+</div>
+
