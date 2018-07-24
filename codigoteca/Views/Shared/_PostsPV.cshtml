@@ -5,32 +5,38 @@
     ViewBag.Title = "Index";
 }
 
-<h3>Últimos posteos públicos</h3>
-
-<button type="button" class="btn">
-    @Html.ActionLink("Crear Post", "Create")
-</button>
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-6">
+        <h3 style="margin:0">Últimos posteos públicos</h3>
+    </div>
+    <div class="col-md-6 text-right">
+        <button type="button" class="btn btn-default">
+            @Html.ActionLink("Crear Post", "Create")
+        </button>
+    </div>
+</div>
 <br>
 <br>
 
-<table class="table">
-    <tr>
-        <th>
+<table class="table thead-light">
+    <thead>
+        <tr>
             @Html.DisplayNameFor(model => model.PostName)
-        </th>
-        <th>
+        </tr>
+        <tr>
             @Html.DisplayNameFor(model => model.PostDescrip)
-        </th>
-        <th>
+        </tr>
+        <tr>
             @Html.DisplayNameFor(model => model.PostDate)
-        </th>
-        <th>
+        </tr>
+        <tr>
             @Html.DisplayNameFor(model => model.PostLanguage)
-        </th>
-        <th></th>
-    </tr>
+        </tr>
+        <tr></tr>
+    </thead>
 
-    @foreach (var item in Model)
+        <tbody>
+            @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -40,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.PostDescrip)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostDate,("dd/MM/yyyy"))
+                @Html.DisplayFor(modelItem => item.PostDate, ("dd/MM/yyyy"))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PostLanguage)
@@ -49,7 +55,8 @@
                 <a href="/Posts/Details/@item.PostId" class="btn btn-primary"> <i class="fa fa-eye"></i> </a>
             </td>
         </tr>
-    }
+}
+        </tbody>
 
 </table>
 

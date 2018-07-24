@@ -4,75 +4,83 @@
     ViewBag.Title = "Index";
 }
 
-<h3>Tus grupos</h3>
+<div class="row" style="margin-top:20px">
+    <div class="col-md-6">
+        <h3 style="margin:0">Tus grupos</h3>
+    </div>
+    <div class="col-md-6 text-right">
 
-<button type="button" class="btn">
-    @Html.ActionLink("Crear Grupo", "Create")
-</button>
+        <button type="button" class="btn btn-default">
+            @Html.ActionLink("Crear Grupo", "Create")
+        </button>
+    </div>
+</div>
+
+
 <br>
 <br>
-<table class="table">
-    <tr>
-        <th>
-            Nombre del grupo
-        </th>
-        <th>
-            Fecha de creación
-        </th>
-        <th>Acciones</th>
-    </tr>
+<table class="table thead-light">
+    <thead>
+        <tr>Nombre del grupo</tr>
+        <tr>Fecha de creación</tr>
+        <tr>Acciones</tr>
+    </thead>
 
     @if (ViewBag.isAdmin)
     {
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.GroupName
-                </td>
-                <td>
-                    @item.GroupDate.ToString("dd/MM/yyyy")
-                </td>
-                <td>
-                    <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                    <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
-                    <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                    <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                </td>
-            </tr>
-        }
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.GroupName
+                    </td>
+                    <td>
+                        @item.GroupDate.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                        <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                        <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                        <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     }
     else
     {
-        foreach (var item in ViewBag.groups)
+        <tbody>
+            @foreach (var item in ViewBag.groups)
+    {
+        <tr>
+            <td>
+                @item.GroupName
+            </td>
+            <td>
+                @item.GroupDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                @if (ViewBag.UserId == item.Owner)
         {
-            <tr>
-                <td>
-                    @item.GroupName
-                </td>
-                <td>
-                    @item.GroupDate.ToString("dd/MM/yyyy")
-                </td>
-                <td>
-                    <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                    <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
-                    @if (ViewBag.UserId == item.Owner)
-                    {
-                        <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                        <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                    }
-                    else
-                    {
-                        <a data-toggle="modal" data-target="#exitGroup" data-id="@item.GroupID" class="btn btn-danger exitGroup">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        </a>
-                    }
-                </td>
-            </tr>
-        }
-    }
+            <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+            <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+}
+else
+{
+        <a data-toggle="modal" data-target="#exitGroup" data-id="@item.GroupID" class="btn btn-danger exitGroup">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+}
+            </td>
+        </tr>
+}
+        </tbody>
+            }
 
-</table>
+    </table>
 
 <div class="modal fade" id="exitGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

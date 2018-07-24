@@ -4502,18 +4502,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-    background-color: #222222;
-    border-color: #080808;
+    background-color: rgba(0,0,0,1);
+    border-color: none
 }
 
 .navbar-inverse .navbar-brand {
   color: #32de38;
+  transition: all .3s;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ffffff;
-  background-color: transparent;
+ font-weight:bold;
 }
 
 .navbar-inverse .navbar-text {
@@ -4521,14 +4521,29 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #abb2b5;
+  color: white;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-  color: #ffffff;
-  background-color: transparent;
-}
+    .navbar-inverse .navbar-nav > li > a::after {
+        content:"";
+        display: block;
+        width: 1%;
+        height:2px;
+        background:white;
+        opacity:0;
+        transition: all .3s;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover::after{
+            width:100%;
+            opacity:1;
+        }
+
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:focus {
+            color: #ffffff;
+            background-color: transparent;
+        }
 
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
