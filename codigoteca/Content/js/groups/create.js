@@ -2,7 +2,7 @@ $(".btn.add").click(function () {
     $("span.error").hide(200);
     
     $.ajax({
-        url: "/groups/validateInvitation",
+        url: "/Invitations/validateInvitation",
         method: "post",
         dataType: "json",
         data: { "mail": $(".addEmail").val() },

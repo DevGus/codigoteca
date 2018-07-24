@@ -52,7 +52,7 @@ else
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.PostDate)
+                @Html.DisplayFor(modelItem => item.PostDate, "{0:dd/MM/yyyy}")
             </td>
             <td>
                 @if (item.PostVisibility == 0)

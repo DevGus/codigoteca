@@ -9,6 +9,7 @@ namespace codigoteca.Models
 {
     public class Group
     {
+
         public Group()
         {
             this.UserGroups = new HashSet<User>();
@@ -20,6 +21,7 @@ namespace codigoteca.Models
         [Display (Name = "Nombre del Grupo")]
         public string GroupName { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime GroupDate { get; set; }
 
         public virtual ICollection<Post> PostGroups { set; get; }

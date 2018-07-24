@@ -37,6 +37,7 @@
                 </td>
                 <td>
                     <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                    <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
                     <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                     <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
@@ -52,17 +53,55 @@
                     @item.GroupName
                 </td>
                 <td>
-                    @item.GroupDate
+                    @item.GroupDate.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                    <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
+
                     @if (ViewBag.UserId == item.Owner)
                     {
                         <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                         <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    }
+                    else
+                    {
+                        <a data-toggle="modal" data-target="#exitGroup" data-id="@item.GroupID" class="btn btn-danger exitGroup"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                     }
                 </td>
             </tr>
         }
     }
 </table>
+
+
+<div class="modal fade" id="exitGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><strong>Salir del grupo</strong></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Estás seguro de salir del grupo?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/Groups/exitGroup?groupId=" type="button" class="btn btn-danger confirm">Salir</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $("a.exitGroup").click(function () {
+            console.log($(".modal .confirm"))
+            $(".modal .confirm").attr("href", ("/Groups/exitGroup?groupId=" + $(this).attr("data-id")));
+        })
+    </script>
+}

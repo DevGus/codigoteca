@@ -22,9 +22,6 @@
             @Html.DisplayNameFor(model => model.PostDescrip)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostBody)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PostDate)
         </th>
         <th>
@@ -43,10 +40,7 @@
                 @Html.DisplayFor(modelItem => item.PostDescrip)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostBody)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostDate)
+                @Html.DisplayFor(modelItem => item.PostDate,("dd/MM/yyyy"))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PostLanguage)

@@ -20,6 +20,15 @@ namespace codigoteca.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            #region tempData
+            if (TempData["Status"] != null)
+            {
+                ViewBag.Status = TempData["Status"];
+                ViewBag.Message = TempData["Message"];
+                TempData.Remove("Status");
+                TempData.Remove("Message");
+            }
+            #endregion
             return View(getUserPosts());
         }
 
@@ -95,8 +104,8 @@ namespace codigoteca.Controllers
                         db.SaveChanges();
                     }
                 }
-                ViewBag.Status = true;
-                ViewBag.Message = "El post fue creado con éxito!";
+                TempData["Status"] = true;
+                TempData["Message"] = "El post fue creado con éxito";
                 return RedirectToAction("Index");
             }
 
@@ -127,6 +136,7 @@ namespace codigoteca.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.PostOwner = int.Parse(Session["UserId"].ToString());
                 post.PostDate = DateTime.Today;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();

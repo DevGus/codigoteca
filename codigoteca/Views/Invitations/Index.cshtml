@@ -1,32 +1,155 @@
-﻿@model IEnumerable<codigoteca.Models.Invitation>
+﻿
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Índice</h2>
+<h2>Invitaciones</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.InvitationHash)
-        </th>
-        <th></th>
-    </tr>
+<h4><strong>Tus invitaciones</strong></h4>
+@if (ViewBag.pendingInvs != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Invitó
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvitationHash)
-        </td>
-        <td>
-            <a href="/invitations/accept/@item.Id" class="btn btn-success">Aceptar</a>
-            <a href="/invitations/reject/@item.Id" class="btn btn-danger">Rechazar</a>
-        </td>
-    </tr>
+            <th>
+                Grupo
+            </th>
+            <th>Fecha</th>
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in ViewBag.pendingInvs)
+        {
+            <tr>
+                <td>
+                    @item.From
+                </td>
+                <td>
+                    @item.GroupName()
+                </td>
+                <td>
+                    @item.Date.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a href="/invitations/accept/@item.Id" class="btn btn-success">Aceptar</a>
+                    <a href="/invitations/reject/@item.Id" class="btn btn-danger">Rechazar</a>
+                </td>
+            </tr>
+        }
+
+
+    </table>
+}
+else
+{
+    <h4>No tienes invitaciones pendientes!</h4>
 }
 
-</table>
+<h4 style="margin-top:20px"><strong>Invitaciones enviadas por vos, pendientes</strong></h4>
+@if (ViewBag.myInvs != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Grupo
+            </th>
+            <th>
+                Invitado
+            </th>
+
+            <th>Fecha</th>
+            <th></th>
+        </tr>
+
+
+        @foreach (var item in ViewBag.myInvs)
+        {
+            <tr>
+                <td>
+                    @item.GroupName()
+                </td>
+                <td>
+                    @item.Invite
+                </td>
+                <td>
+                    @item.Date.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a href="/invitations/cancel/@item.Id" class="btn btn-danger">Cancelar</a>
+                </td>
+            </tr>
+        }
+
+
+    </table>
+}
+else
+{
+    <h4>No tienes invitaciones pendientes!</h4>
+}
+
+<h4 style="margin-top:20px"><strong>Todas las invitaciones de tus grupos pendientes</strong></h4>
+@if (ViewBag.groupInvs != null)
+{
+    <table class="table">
+        <tr>
+
+            <th>
+                Grupo
+            </th>
+            <th>
+                Quién invitó
+            </th>
+            <th>
+                Invitado
+            </th>
+            <th>
+                Fecha
+            </th>
+
+
+        </tr>
+
+
+        @foreach (var item in ViewBag.groupInvs)
+        {
+            <tr>
+                <td>
+                    @item.GroupName()
+                </td>
+                <td>
+                    @item.From
+                </td>
+                <td>
+                    @item.Invite
+                </td>
+                <td>
+                    @item.Date.ToString("dd/MM/yyyy")
+                </td>
+            </tr>
+        }
+
+
+    </table>
+}
+else
+{
+    <h4>No tienes invitaciones pendientes!</h4>
+}
+
+
+
+
+@section Scripts {
+    <script>
+        $("a.exitGroup").click(function () {
+            console.log($(".modal .confirm"))
+            $(".modal .confirm").attr("href", ("/Groups/exitGroup?groupId=" + $(this).attr("data-id")));
+        })
+    </script>
+}

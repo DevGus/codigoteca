@@ -28,7 +28,7 @@
                 <h3>Agregar usuarios al grupo</h3>
                 <p>Si el mail ingresado no esta registrado en la aplicación recibirá un mail con la invitación para registrarse y unirse al grupo </p>
                 <div class="col-md-10">
-                    <input class="form-control addEmail" name="addMail" type="email" value="" placeholder="Ingrese el email" />
+                    <input class="form-control addEmail" name="addMail" id="addMail" type="email" value="" placeholder="Ingrese el email" />
                     <span class="text-danger error"></span>
                 </div>
                 <button type="button" class="add btn btn-primary">
@@ -55,4 +55,16 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Content/js/groups/create.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    <script>
+        $(function () {
+            $("#addMail").autocomplete({
+                source: "/Groups/BuscarPersonas"
+            });
+        });
+    </script>
+
 }

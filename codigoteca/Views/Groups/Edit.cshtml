@@ -25,49 +25,82 @@
 
         </div>
 
-        <h3>Administrar integrantes </h3>
-        <br />
+
         @if (ViewBag.isAdmin)
         {
-            <h4>Existentes</h4>
-            foreach (var item in ViewBag.groupUsers)
+            if (ViewBag.groupUsers.Count != 0)
             {
+
+                <h3>Administrar integrantes </h3>
+                <br />
+                <h4>Existentes</h4>
+                foreach (var item in ViewBag.groupUsers)
+                {
                 <div style="display:flex;margin-bottom:15px; justify-content:space-between;align-items:center;border-bottom: 1px solid #777" class="col-md-12">
                     <p>@item.UserName - @item.UserMail</p>
-                    <a href="/Groups/deleteIntegrant/@item.UserID" class="btn btn-danger">Eliminar</a>
+                    <a data-toggle="modal" data-target="#deleteUser" data-user="@item.UserID" data-group="@ViewBag.groupId" class="btn btn-danger deleteUser">Eliminar</a>
                 </div>
+                }
             }
+
+
         }
 
-        <h4>Invitar usuarios</h4>
-        <div class="form-group groups" data-id="@Model.GroupID.ToString()">
-            <div class="col-md-6">
-                <input class="form-control addEmail" name="addMail" id="addMail" type="email" value="" placeholder="Ingrese el email" />
-                <span class="text-danger error"></span>
-            </div>
-            <button type="button" class="col-md-1 col-xs-3 add btn btn-primary">
-                Agregar
-            </button>
-            <div class="clearfix"></div>
-            <br />
-            <div class="col-md-12">
-                <h5><strong>Invitados</strong></h5>
-                <div class="invited">
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="form-group">
+        <div class="form-group" style="margin-top:40px;">
             <div class="col-md-10">
                 <input type="submit" value="Guardar" class="btn btn-success" />
                 <a href="/Groups" class="btn btn-primary">Volver atrás</a>
+            </div>
+            <div class="col-md-2 pull-right text-right">
+                <a data-toggle="modal" data-target="#exitGroup" data-id="@ViewBag.groupId" class="btn btn-danger exitGroup">Salir del grupo</a>
+
             </div>
         </div>
     </div>
 
 }
+
+
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><strong>Eliminar usuario</strong></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Borrar el usuario del grupo?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/Groups/deleteIntegrant?userId=&groupId=" type="button" class="btn btn-danger confirm">Borrar</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exitGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title"><strong>Salir del grupo</strong></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Estás seguro de salir del grupo?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/Groups/exitGroup?groupId=" type="button" class="btn btn-danger confirm">Salir</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @section Scripts {
@@ -82,6 +115,18 @@
                 source: "/Groups/BuscarPersonas"
             });
         });
+    </script>
+    <script>
+        
+        $("a.deleteUser").click(function () {
+            console.log($(this));
+            $("#deleteUser.modal .confirm").attr("href", ("/Groups/exitGroup?groupId/Groups/deleteIntegrant?userId=" + $(this).attr("data-user") + "&groupId=" + $(this).attr("data-group")));
+        })
+
+        $("a.exitGroup").click(function () {
+            console.log($(this).attr("data-id"));
+            $("#exitGroup.modal .confirm").attr("href", ("/Groups/exitGroup?groupId=" + $(this).attr("data-id")));
+        })
     </script>
 
 }

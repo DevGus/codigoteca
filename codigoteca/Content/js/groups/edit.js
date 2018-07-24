@@ -3,7 +3,7 @@ $(".btn.add").click(function () {
     groupId = $(".groups").data("id");    
     
     $.ajax({
-        url: "/groups/validateInvitation",
+        url: "/Invitations/validateInvitation",
         method: "post",
         dataType: "json",
         data: {"mail": $(".addEmail").val(),"newGroup":false, 'GroupID':groupId },

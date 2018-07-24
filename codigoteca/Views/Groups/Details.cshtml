@@ -61,7 +61,7 @@
         @foreach (var item in ViewBag.postsGroup)
         {
             <tr>
-                <td> @item.PostDate </td>
+                <td> @item.PostDate.ToString("dd/MM/yyyy") </td>
                 <td>@item.PostName</td>
                 <td>
                     <a class="btn btn-primary" href="/Posts/Details/@item.PostId"><i class='fa fa-eye'></i></a>

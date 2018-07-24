@@ -10,3 +10,13 @@
 }
 @{Html.RenderAction("VistaParcial", "Posts");
 }
+
+
+@section Scripts {
+    <script>
+        $("a.exitGroup").click(function () {
+            console.log($(".modal .confirm"))
+            $(".modal .confirm").attr("href", ("/Groups/exitGroup?groupId=" + $(this).attr("data-id")));
+        })
+    </script>
+}
