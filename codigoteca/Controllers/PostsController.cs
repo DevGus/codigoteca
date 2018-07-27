@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -203,6 +204,16 @@ namespace codigoteca.Controllers
         {
             int id = Convert.ToInt32(Session["UserId"].ToString());
             return db.Posts.Where(a => a.PostOwner == id).ToList();
+        }
+
+        public ActionResult filter(String from, String to)
+        {
+            DateTime fromDate = DateTime.ParseExact(from, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime toDate = DateTime.ParseExact(to, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            var posts = db.Posts.Where(a => a.PostDate >= fromDate && a.PostDate <= toDate).ToArray();
+
+            return Json(new { success = true, from = from, to = to, posts = posts}, JsonRequestBehavior.AllowGet);
         }
     }
 }

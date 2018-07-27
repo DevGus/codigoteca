@@ -25,7 +25,7 @@ namespace codigoteca.Controllers
         public ActionResult Login([Bind(Include = "UserMail,UserPass")] User loginUser, string returnUrl)
         {
             User user = db.Users.Where(a => a.UserMail == loginUser.UserMail).FirstOrDefault();
-            if (user != null && user.Decrypt(user.UserHash).Equals(loginUser.UserPass)){
+            if (user != null && user.Decrypt(user.UserHash).Equals(loginUser.UserPass)) {
                 if (user.EmailVerified == 0)
                 {
                     ViewBag.Message = "Aún no has verificado tu correo electrónico";

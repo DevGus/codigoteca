@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,6 +10,8 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+    @RenderSection("Links", required: false)
 </head>
 
 <body>
@@ -29,11 +32,17 @@
                     <li>@Html.ActionLink("Posteos", "Index", "Posts")</li>
                     <li>@Html.ActionLink("Grupos", "Index", "Groups")</li>
                     <li><a href="/posts/privates">Posteos privados</a></li>
+                    @Session["isAdmin"]
+                    @if (bool.Parse(Session["isAdmin"].ToString()) )
+    {
+                <li><a href="/reports">Reportes</a></li>
+}
+
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/invitations">Invitaciones</a></li>
-                    <li>@Html.ActionLink(Session["UserName"].ToString() + " (Cerrar Sesión)", "LogOut", "Auth")</li>
-                </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/invitations">Invitaciones</a></li>
+                        <li>@Html.ActionLink(Session["UserName"].ToString() + " (Cerrar Sesión)", "LogOut", "Auth")</li>
+                    </ul>
                 }
             </div>
         </div>
@@ -45,7 +54,7 @@
             {
                 if (ViewBag.Message != null)
                 {
-                    <div class="alert alert-success"style="margin-top:30px;">
+                    <div class="alert alert-success" style="margin-top:30px;">
                         <strong>Genial! </strong>@ViewBag.Message
                     </div>
                 }

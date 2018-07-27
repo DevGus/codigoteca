@@ -1,0 +1,139 @@
+﻿@model IEnumerable<codigoteca.Models.Post>
+
+@section Links {
+    <link rel="stylesheet" type="text/css" href="~/Content/datatables/media/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+}
+
+@{
+    ViewBag.Title = "Reportes";
+}
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="/reports/posts">Posteos</a>
+    </li>
+    <li><a href="/reports/groups">Grupos</a></li>
+    <li><a href="/reports/invitations">Invitaciones</a></li>
+</ul>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Posteos</h1>
+        <hr />
+        <h4><strong>Resumen anual</strong></h4>
+
+        <div class="chart-info" style="display:none;" data-label="Posteos creados">
+            @foreach (var item in ViewBag.chart)
+            {
+                <div data-month="@item.month" data-count="@item.count"></div>
+            }
+        </div>
+    </div>
+    <div class="clearfix">
+
+    </div>
+    <div class="col-md-8">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <hr />
+        <h4><strong>Todos los posteos</strong></h4>
+        @using (Html.BeginForm())
+        {
+            <div class="form-horizontal col-md-12">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+
+                    <div class="col-md-4 col-xs-12">
+
+                        <input autocomplete="off" type="text" name="from" value="" class="form-control datepicker-only-init" placeholder="Desde" />
+                    </div>
+
+                    <div class="col-md-4 col-md-offset-1 col-xs-12 col-xs-offset-0">
+                        <input autocomplete="off" type="text" name="to" value="" class="form-control datepicker-only-init" placeholder="Hasta" />
+                    </div>
+                    <div class="col-md-2 col-xs-12 ">
+                        <a class="button-go btn btn-primary" data-model="posts" href="/groups/filter?from=&to=">Buscar</a>
+                    </div>
+                </div>
+            </div>
+        }
+        <br /><br />
+        <table class="table table-hover nowrap" id="datatable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostDescrip)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostVisibility)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostLanguage)
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostDescrip)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostDate, "{0:dd/MM/yyyy}")
+                        </td>
+                        <td>
+                            @if (item.PostVisibility == 0)
+                            {
+                                <p>Público</p>
+                            }
+                            else
+                            {
+                                <p>Público</p>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostLanguage)
+                        </td>
+                        <td>
+                            <a target="_blank" href="/Posts/Details/@item.PostId" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                            <a target="_blank" href="/Posts/Delete/@item.PostId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/Content/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/Content/moment/min/moment.min.js"></script>
+    <script src="~/Content/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="~/Content/charts/js/popper.min.js"></script>
+    <script src="~/Content/charts/js/mdb.min.js"></script>
+    <script src="~/Content/reports/charts.js"></script>
+}
+

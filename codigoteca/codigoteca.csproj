@@ -159,12 +159,14 @@
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\InvitationsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logica\Auth_Controller.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Chart.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\PostGroups.cs" />
@@ -284,6 +286,8 @@
     <Content Include="Views\Shared\_PostsPV.cshtml" />
     <Content Include="Views\Shared\_GruposPV.cshtml" />
     <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Reports\Posts.cshtml" />
+    <Content Include="Views\Reports\Invitations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

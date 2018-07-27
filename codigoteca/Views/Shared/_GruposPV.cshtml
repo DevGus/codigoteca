@@ -1,4 +1,5 @@
 ﻿
+@model IEnumerable<codigoteca.Models.Group>
 
 @{
     ViewBag.Title = "Index";
@@ -21,15 +22,17 @@
 <br>
 <table class="table thead-light">
     <thead>
-        <tr>Nombre del grupo</tr>
-        <tr>Fecha de creación</tr>
-        <tr>Acciones</tr>
+        <tr>
+            <th>Nombre del grupo</th>
+            <th>Fecha de creación</th>
+            <th>Acciones</th>
+        </tr>
     </thead>
 
     @if (ViewBag.isAdmin)
     {
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.groups)
             {
                 <tr>
                     <td>
@@ -52,35 +55,35 @@
     {
         <tbody>
             @foreach (var item in ViewBag.groups)
-    {
-        <tr>
-            <td>
-                @item.GroupName
-            </td>
-            <td>
-                @item.GroupDate.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
-                @if (ViewBag.UserId == item.Owner)
-        {
-            <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-            <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-}
-else
-{
-        <a data-toggle="modal" data-target="#exitGroup" data-id="@item.GroupID" class="btn btn-danger exitGroup">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-        </a>
-}
-            </td>
-        </tr>
-}
-        </tbody>
+            {
+                <tr>
+                    <td>
+                        @item.GroupName
+                    </td>
+                    <td>
+                        @item.GroupDate.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        <a href="/Groups/Details/@item.GroupID" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                        <a href="/Invitations/Create?GroupID=@item.GroupID" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                        @if (ViewBag.UserId == item.Owner)
+                        {
+                            <a href="/Groups/Edit/@item.GroupID" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                            <a href="/Groups/Delete/@item.GroupID" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        }
+                        else
+                        {
+                            <a data-toggle="modal" data-target="#exitGroup" data-id="@item.GroupID" class="btn btn-danger exitGroup">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
             }
+        </tbody>
+    }
 
-    </table>
+</table>
 
 <div class="modal fade" id="exitGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
