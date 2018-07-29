@@ -32,11 +32,11 @@
                     <li>@Html.ActionLink("Posteos", "Index", "Posts")</li>
                     <li>@Html.ActionLink("Grupos", "Index", "Groups")</li>
                     <li><a href="/posts/privates">Posteos privados</a></li>
-                    @Session["isAdmin"]
+                    @*Session["isAdmin"]*@
                     @if (bool.Parse(Session["isAdmin"].ToString()) )
-    {
-                <li><a href="/reports">Reportes</a></li>
-}
+                    {
+                         <li><a href="/reports">Reportes</a></li>
+                    }
 
                 </ul>
                     <ul class="nav navbar-nav navbar-right">
