@@ -96,7 +96,8 @@ namespace codigoteca.Controllers
         {
             if (ModelState.IsValid)
             {
-                createSendInvitations(invited, GroupId);
+                int id = int.Parse(Session["UserId"].ToString());
+                createSendInvitations(invited, GroupId,id);
 
                 TempData["Status"] = true;
                 TempData["Message"] += " Hemos enviado las invitaciones a los usuarios ingresados";
@@ -305,11 +306,12 @@ namespace codigoteca.Controllers
         }
 
         [Authorize]
-        public bool createSendInvitations(String[] mails, int groupId)
+        public bool createSendInvitations(String[] mails, int groupId, int idUser)
         {
+
             Invitation inv = new Invitation();
-            int id = int.Parse(Session["UserId"].ToString());
-            string usermail = db.Users.Where(a => a.UserID == id).FirstOrDefault().UserMail;
+            //int id = int.Parse(Session["UserId"].ToString());
+            string usermail = db.Users.Where(a => a.UserID == idUser).FirstOrDefault().UserMail;
             if (mails != null)
             {
                 foreach (String mail in mails)
@@ -345,8 +347,8 @@ namespace codigoteca.Controllers
 
         private void sendInvitationMail(Invitation inv)
         {
-            var verifyUrl = "/Invitations/acceptInvitation/" + inv.InvitationHash;
-            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+            var link = "http://localhost:8081/Invitations/acceptInvitation/" + inv.InvitationHash;
+            //var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("codigoteca.net@gmail.com", "Codigoteca");
             var toEmail = new MailAddress(inv.Invite);

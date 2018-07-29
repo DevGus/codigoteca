@@ -112,7 +112,7 @@ namespace codigoteca.Controllers
                 
                 TempData["Status"] = true;
                 TempData["Message"] = "Grupo Creado correctamente!";
-                if (new InvitationsController().createSendInvitations(invited, group.GroupID))
+                if (new InvitationsController().createSendInvitations(invited, group.GroupID,userId))
                 {
                     TempData["Message"] += " Hemos enviado las invitaciones a los usuarios ingresados";
                 }
